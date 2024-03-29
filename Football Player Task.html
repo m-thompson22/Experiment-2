@@ -1,57 +1,196 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Replication of Shams et al. </title>
+
+<head>
+    <title> Replication of Shams et al. </title>
     <script src="https://unpkg.com/jspsych@7.3.4"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
     <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-slider-response"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
     <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body></body>
-  <script>
+</head>
 
- /* initialize jsPsych */
- var jsPsych = initJsPsych({
-      on_finish: function() {
-        jsPsych.data.displayData();
-      }
+<body></body>
+<script>
+
+    /* initialize jsPsych */
+    var jsPsych = initJsPsych({
+        on_finish: function () {
+            jsPsych.data.displayData();
+        }
     });
 
-     /* create timeline */
-     var timeline = [];
+    /* create timeline */
+    var timeline = [];
 
-      /* preload images */
+    /* preload images */
     var preload = {
-      type: jsPsychPreload,
-      images: [ 
-
-
-
-      ]
+        type: jsPsychPreload,
+        images: [ /* include images here */]
     };
     timeline.push(preload);
 
-/* define welcome message trial */
-var welcome = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: "Welcome to the experiment. Press any key to begin."
+    /* define welcome message trial */
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "Welcome to the experiment. Press any key to begin."
     };
     timeline.push(welcome);
 
 
- /* define instructions trial */
+    /* define instructions trial */
     var instructions = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: `
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
         <p>In this experiment, you will be presented with images of football players. A continuous slider, ranging from the smallest possible value, <strong> very slender </strong>, to the largest possible value, <strong> very husky </strong>, will appear underneath each image. </p>
         <p>Please drag the slider to the point of the scale that you believe best describes the football player's body size. You may place the slider <strong> anywhere </strong> on the scale.</p>
         <p> Please take no longer than three seconds to respond to stimuli </p> 
         <p> There will be two trial periods, each consisting of 60 trials.</p>
-        <p> Press any key when you are ready to begin </p> 
+        <p> We will begin with two test trials so you can become familiar with the task. </p> 
         <div style='width: 700px;'>
         </div>
         <p>Press any key to begin.</p>
       `,
-      post_trial_gap: 2000
+        post_trial_gap: 500
     };
+    timeline.push(instructions);
+
+    /* load practice trial stimuli */
+    var practice_stimuli = [
+        { stimulus: "___" },
+        { stimulus: "___" },
+        { stimulus: "___" },
+        { stimulus: "___" },
+    ];
+
+    /* define fixation */
+    var fixation = {
+        type: jsPsychHtmlKeyboardResponse,
+        choices: "NO_KEYS",
+        stimulus: '<div style="font-size:60px;">+</div>',
+        trial_duration: function () {
+            return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0]; // adjust duration as needed
+        },
+        data: {
+            task: 'fixation'
+        }
+    };
+
+    /* create a practice trial block */
+    /* define practice procedure */
+
+    var practice_trials = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        response_ends_trial: true,
+        slider_width: 500, // include slider response 
+        data: {
+            task: 'response'
+        },
+        prompt: "Please indicate your response on the slider below",
+        labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
+        on_finish: function (data) {
+            data.correct = true;
+        }
+    };
+
+    var practice_procedure = {
+        timeline: [fixation, practice_trials],
+        timeline_variables: practice_stimuli
+    };
+
+    timeline.push(practice_procedure);
+
+    /* define post-practice instructions */
+    var post_practice_instructions = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> You have now completed the practice trials <p>
+        <p> We will now begin the <b> main trials <b><p> 
+        <p> Please press any key to begin <p>
+      `,
+        post_trial_gap: 2000
+    };
+    //timeline.push(post_practice_instructions);
+
+
+    /* load stimuli */
+
+    var list_1 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_2 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_3 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_4 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_5 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_6 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_7 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_8 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_9 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_10 = [{ stimulus: "____", correct_response: '_____' }];
+
+    var test_stimuli = [list_1, list_2, list_3, list_4, list_5, list_6, list_7, list_8, list_9, list_10];
+
+    /* Define trial stimuli/create blocks */
+    var blocks = [];
+    for (var i = 0; i < 10; i += 2) {
+        var block_A = {
+            timeline: [fixation],
+            timeline_variables: test_stimuli[i],
+            randomize_order: true,
+            type: jsPsychImageSliderResponse,
+            trial_duration: 'response_ends_trial',
+            slider_width: 1,
+            data: {
+                task: 'response',
+                block: 'A',
+                index: i
+            },
+            prompt: "Please indicate your response on the slider below",
+            labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
+            on_finish: function (data) {
+                data.correct = true; // Assuming there's no correctness criteria for main trials
+            }
+        };
+
+        var block_B = {
+            timeline: [fixation],
+            timeline_variables: test_stimuli[i + 1], // Use i + 1 to get the corresponding list for block B
+            randomize_order: true,
+            type: 'image-slider-responsee',
+            trial_duration: 'response_ends_trial',
+            slider_width: 1,
+            data: {
+                task: 'response',
+                block: 'B',
+                index: i + 1 // Adjusted index for block B
+            },
+            prompt: "Please indicate your response on the slider below",
+            labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
+            on_finish: function (data) {
+                data.correct = true; // Assuming there's no correctness criteria for main trials
+            }
+        };
+
+        blocks.push(block_A);
+        blocks.push(block_B);
+    }
+
+    var test_procedure = {
+        timeline: blocks,
+        repetitions: 0,
+        randomize_order: true,
+        on_finish: function (data) {
+            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.stimulus);
+        }
+    };
+  timeline.push(test_procedure)
+
+
+    /* start the experiment */
+    jsPsych.run(timeline);
+
+
+</script>
+
+</html>

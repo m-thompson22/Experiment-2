@@ -70,9 +70,7 @@
         type: jsPsychHtmlKeyboardResponse,
         choices: "NO_KEYS",
         stimulus: '<div style="font-size:60px;">+</div>',
-        trial_duration: function () {
-            return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0]; // adjust duration as needed
-        },
+        trial_duration: 800,
         data: {
             task: 'fixation'
         }

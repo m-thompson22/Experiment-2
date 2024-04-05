@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Replication of Shams et al. </title>
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-slider-response"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body></body>
+<script>
+    /* initialize jsPsych */
+    var jsPsych = initJsPsych({
+        on_finish: function () {
+            jsPsych.data.displayData();
+        }
+    });
+
+     /* create timeline */
+     var timeline = [];
+
+/* preload images */
+var preload = {
+    type: jsPsychPreload,
+    images: [ /* include images here */]
+};
+timeline.push(preload);
+
+/* define welcome message trial */
+var welcome = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "Welcome to the experiment. Press any key to begin."
+};
+timeline.push(welcome);
+
+
+/* define instructions trial */
+var instructions = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+    <p>In this experiment, you will be presented with images of football players. A continuous slider, ranging from the smallest possible value, <strong> very slender </strong>, to the largest possible value, <strong> very husky </strong>, will appear underneath each image. </p>
+    <p>Please drag the slider to the point of the scale that you believe best describes the football player's body size. You may place the slider <strong> anywhere </strong> on the scale.</p>
+    <p> Please take no longer than three seconds to respond to stimuli </p> 
+    <p> There will be two trial periods, each consisting of 60 trials.</p>
+    <p> We will begin with two test trials so you can become familiar with the task. </p> 
+    <div style='width: 700px;'>
+    </div>
+    <p>Press any key to begin.</p>
+  `,
+    post_trial_gap: 500
+};
+timeline.push(instructions);
+
+
+/* load practice trial stimuli */
+var practice_stimuli = [
+    { stimulus: "___" },
+    { stimulus: "___" },
+    { stimulus: "___" },
+    { stimulus: "___" },
+];
+
+/* define fixation */
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    choices: "NO_KEYS",
+    stimulus: '<div style="font-size:60px;">+</div>',
+    trial_duration: function () {
+        return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 800, 1000, 1250, 1500, 1750, 2000], 4)[0]; // adjust duration as needed
+    },
+    data: {
+        task: 'fixation'
+    }
+};
+
+/* define stimuli fixation */ 
+var practice_stimuli_page = { 
+    type: jsPsychHtmlKeyboardResponse,
+    choices: "NO_KEYS",
+    stimulus: jsPsych.timelineVariable('practice_stimuli'), 
+    trial_duration: function () { 
+        return jsPsych.randomization.sampleWithoutReplacement([250, 400, 500, 750, 1000, 1250, 1500, 1750, 2000], 2)[0]; // adjust duration as needed
+    }
+}
+
+var practice_trials = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: " ",
+        response_ends_trial: true,
+        slider_width: 750, // include slider response 
+        data: {
+            task: 'response'
+        },
+        labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
+        on_finish: function (data) {
+            data.correct = true;
+        }
+    };
+
+
+var practice_procedure = {
+        timeline: [fixation, practice_stimuli_page, practice_trials],
+        timeline_variables: practice_stimuli
+    };
+
+    timeline.push(practice_procedure);
+
+     /* define post-practice instructions */
+     var post_practice_instructions = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> You have now completed the practice trials <p>
+        <p> We will now begin the <b> main trials <b><p> 
+        <p> Please press any key to begin <p>
+      `,
+        post_trial_gap: 1000
+    };
+    timeline.push(post_practice_instructions);
+
+
+    /* load stimuli */
+
+    var list_1 = [{ stimulus: "____"}];
+    var list_2 = [{ stimulus: "____"}];
+    var list_3 = [{ stimulus: "____"}];
+    var list_4 = [{ stimulus: "____"}];
+    var list_5 = [{ stimulus: "____"}];
+    var list_6 = [{ stimulus: "____"}];
+    var list_7 = [{ stimulus: "____"}];
+    var list_8 = [{ stimulus: "____"}];
+    var list_9 = [{ stimulus: "____", correct_response: '_____' }];
+    var list_10 = [{ stimulus: "____", correct_response: '_____' }];
+    /* Define trial stimuli/create blocks */
+
+var test_stimuli_page = {
+    type: jsPsychHtmlKeyboardResponse,
+    choices: "NO_KEYS",
+    stimulus: jsPsych.timelineVariable('stimulus'), 
+    trial_duration: function () { 
+        return jsPsych.randomization.sampleWithoutReplacement([250, 400, 500, 750, 1000, 1250, 1500, 1750, 2000], 2)[0]; // adjust duration as needed
+    }
+}
+    var block_A_stimuli = [...list_1, ...list_3, ...list_5, ...list_7, ...list_9];
+
+    var block_B_stimuli = [...list_2, ...list_4, ...list_6, ...list_8, ...list_10];
+
+
+    var test_trial = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: "",
+        slider_width: 750,
+        labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
+        on_finish: function (data) {
+            data.correct = true; // Assuming there's no correctness criteria for  trials
+        }
+    }
+
+    var test_procedure_block_A = {
+        timeline: [fixation, test_stimuli_page, test_trial],
+        timeline_variables: block_A_stimuli,
+        randomize_order: true
+    };
+    
+    var test_procedure_block_B = {
+        timeline: [fixation, test_stimuli_page, test_trial],
+        timeline_variables: block_B_stimuli,
+        randomize_order: true
+    };
+
+    var test_break = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> You have now completed the first block of trials. <p>
+        <p> Feel free to take a short break if needed. <p> 
+        <p> Press any key when you are ready to begin the second block. <p>
+      `,
+        post_trial_gap: 1000
+    };
+
+    var test_complete = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> Congrats! You have now completed the experiment. <p>
+        <p> Thank you for participating! <p> 
+        <p> Please wait for further instruction from your experimenter <p>
+      `,
+        post_trial_gap: 1000
+    };
+
+    var blocks = [test_procedure_block_A, test_procedure_block_B]; 
+
+    var rnd_blocks = jsPsych.randomization.shuffle(blocks); 
+
+    timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete);
+
+
+    //run experiment 
+    jsPsych.run(timeline)
+
+</script>
+
+</html>

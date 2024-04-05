@@ -14,7 +14,6 @@
 
 <body></body>
 <script>
-
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
         on_finish: function () {
@@ -57,6 +56,7 @@
     };
     timeline.push(instructions);
 
+
     /* load practice trial stimuli */
     var practice_stimuli = [
         { stimulus: "___" },
@@ -85,11 +85,10 @@
         type: jsPsychHtmlSliderResponse,
         stimulus: jsPsych.timelineVariable('stimulus'),
         response_ends_trial: true,
-        slider_width: 500, // include slider response 
+        slider_width: 750, // include slider response 
         data: {
             task: 'response'
         },
-        prompt: "Please indicate your response on the slider below",
         labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
         on_finish: function (data) {
             data.correct = true;
@@ -111,9 +110,9 @@
         <p> We will now begin the <b> main trials <b><p> 
         <p> Please press any key to begin <p>
       `,
-        post_trial_gap: 2000
+        post_trial_gap: 1000
     };
-    //timeline.push(post_practice_instructions);
+    timeline.push(post_practice_instructions);
 
 
     /* load stimuli */
@@ -128,68 +127,43 @@
     var list_8 = [{ stimulus: "____", correct_response: '_____' }];
     var list_9 = [{ stimulus: "____", correct_response: '_____' }];
     var list_10 = [{ stimulus: "____", correct_response: '_____' }];
-
-    var test_stimuli = [list_1, list_2, list_3, list_4, list_5, list_6, list_7, list_8, list_9, list_10];
-
     /* Define trial stimuli/create blocks */
-    var blocks = [];
-    for (var i = 0; i < 10; i += 2) {
-        var block_A = {
-            timeline: [fixation],
-            timeline_variables: test_stimuli[i],
-            randomize_order: true,
-            type: jsPsychImageSliderResponse,
-            trial_duration: 'response_ends_trial',
-            slider_width: 1,
-            data: {
-                task: 'response',
-                block: 'A',
-                index: i
-            },
-            prompt: "Please indicate your response on the slider below",
-            labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
-            on_finish: function (data) {
-                data.correct = true; // Assuming there's no correctness criteria for main trials
-            }
-        };
 
-        var block_B = {
-            timeline: [fixation],
-            timeline_variables: test_stimuli[i + 1], // Use i + 1 to get the corresponding list for block B
-            randomize_order: true,
-            type: 'image-slider-responsee',
-            trial_duration: 'response_ends_trial',
-            slider_width: 1,
-            data: {
-                task: 'response',
-                block: 'B',
-                index: i + 1 // Adjusted index for block B
-            },
-            prompt: "Please indicate your response on the slider below",
-            labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
-            on_finish: function (data) {
-                data.correct = true; // Assuming there's no correctness criteria for main trials
-            }
-        };
 
-        blocks.push(block_A);
-        blocks.push(block_B);
+    var test_trial = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        slider_width: 750,
+        data: {
+            task: 'response',
+        },
+        labels: ["very husky", "moderately husky", "neither husky nor slender", "moderately slender", "very slender"],
+        on_finish: function (data) {
+            data.correct = true; // Assuming there's no correctness criteria for  trials
+        }
     }
 
-    var test_procedure = {
-        timeline: blocks,
-        repetitions: 0,
-        randomize_order: true,
-        on_finish: function (data) {
-            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.stimulus);
-        }
+    var block_A_stimuli = [...list_1, ...list_3, ...list_5, ...list_7, ...list_9];
+
+    var block_B_stimuli = [...list_2, ...list_4, ...list_6, ...list_8, ...list_10];
+
+
+    var test_procedure_block_A = {
+        timeline: [fixation, test_trial],
+        timeline_variables: block_A_stimuli,
+        randomize_order: true
     };
-  timeline.push(test_procedure)
+    
+    var test_procedure_block_B = {
+        timeline: [fixation, test_trial],
+        timeline_variables: block_B_stimuli,
+        randomize_order: true
+    };
 
+    timeline.push(test_procedure_block_A, test_procedure_block_B);
 
-    /* start the experiment */
-    jsPsych.run(timeline);
-
+    //run experiment 
+    jsPsych.run(timeline)
 
 </script>
 

@@ -160,7 +160,33 @@
         randomize_order: true
     };
 
-    timeline.push(test_procedure_block_A, test_procedure_block_B);
+    var test_break = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> You have now completed the first block of trials. <p>
+        <p> Feel free to take a short break if needed. <p> 
+        <p> Press any key when you are ready to begin the second block. <p>
+      `,
+        post_trial_gap: 1000
+    };
+
+    var test_complete = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> Congrats! You have now completed the experiment. <p>
+        <p> Thank you for participating! <p> 
+        <p> Please wait for further instruction from your experimenter <p>
+      `,
+        post_trial_gap: 1000
+    };
+
+
+    var blocks = [test_procedure_block_A, test_procedure_block_B]; 
+
+        var rnd_blocks = jsPsych.randomization.shuffle(blocks); 
+
+    timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete);
+
 
     //run experiment 
     jsPsych.run(timeline)

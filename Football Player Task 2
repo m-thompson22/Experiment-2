@@ -10,6 +10,9 @@
     <script src="https://unpkg.com/@jspsych/plugin-image-slider-response"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
     <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+ <style> 
+    .slider {font-size: 20px; font-weight: bold; color: black;}
+  </style>
 </head>
 
 <body></body>
@@ -46,7 +49,7 @@ var instructions = {
     <p>In this experiment, you will be presented with images of football players. A continuous slider, ranging from the smallest possible value, <strong> very slender </strong>, to the largest possible value, <strong> very husky </strong>, will appear underneath each image. </p>
     <p>Please drag the slider to the point of the scale that you believe best describes the football player's body size. You may place the slider <strong> anywhere </strong> on the scale.</p>
     <p> Please take no longer than three seconds to respond to stimuli </p> 
-    <p> There will be two trial periods, each consisting of 60 trials.</p>
+    <p> There will be two trial periods, each consisting of 120 trials.</p>
     <p> We will begin with two test trials so you can become familiar with the task. </p> 
     <div style='width: 700px;'>
     </div>
@@ -70,9 +73,7 @@ var fixation = {
     type: jsPsychHtmlKeyboardResponse,
     choices: "NO_KEYS",
     stimulus: '<div style="font-size:60px;">+</div>',
-    trial_duration: function () {
-        return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 800, 1000, 1250, 1500, 1750, 2000], 4)[0]; // adjust duration as needed
-    },
+    trial_duration: 800,
     data: {
         task: 'fixation'
     }
@@ -83,14 +84,13 @@ var practice_stimuli_page = {
     type: jsPsychHtmlKeyboardResponse,
     choices: "NO_KEYS",
     stimulus: jsPsych.timelineVariable('practice_stimuli'), 
-    trial_duration: function () { 
-        return jsPsych.randomization.sampleWithoutReplacement([250, 400, 500, 750, 1000, 1250, 1500, 1750, 2000], 2)[0]; // adjust duration as needed
-    }
+    trial_duration: 400
 }
 
 var practice_trials = {
         type: jsPsychHtmlSliderResponse,
         stimulus: " ",
+        css_classes: ['slider'],
         response_ends_trial: true,
         slider_width: 750, // include slider response 
         data: {
@@ -153,6 +153,7 @@ var test_stimuli_page = {
     var test_trial = {
         type: jsPsychHtmlSliderResponse,
         stimulus: "",
+        css_classes: ['slider'],
         slider_width: 750,
         labels: ["very husky", "very slender"],
         on_finish: function (data) {

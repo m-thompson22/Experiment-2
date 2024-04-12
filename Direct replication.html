@@ -291,9 +291,10 @@
     
     
     /* load practice trials*/
-    
-    var practice_stimuli = random_order.slice(120,123);
-   
+
+    var practice_stimuli = random_order.slice(120, 123);
+
+
     /* define fixation */
     var fixation = {
         type: jsPsychHtmlKeyboardResponse,
@@ -309,13 +310,13 @@
     var practice_stimuli_page = {
         type: jsPsychImageKeyboardResponse,
         choices: "NO_KEYS",
-        stimulus: jsPsych.timelineVariable('practice_stimuli'),
+        stimulus: jsPsych.timelineVariable('stimulus'),
         trial_duration: 400
     }
 
     var practice_trials = {
         type: jsPsychHtmlSliderResponse,
-        stimulus: " ",
+        stimulus: "",
         css_classes: ['slider'],
         response_ends_trial: true,
         slider_width: 750, // include slider response 
@@ -348,6 +349,7 @@
     };
     timeline.push(post_practice_instructions);
 
+    /// MAIN TRIAL STUFF ///
 
     /* load stimuli */
 

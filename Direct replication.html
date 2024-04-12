@@ -309,7 +309,7 @@
     var practice_stimuli_page = {
         type: jsPsychImageKeyboardResponse,
         choices: "NO_KEYS",
-        stimulus: jsPsych.timelineVariable('stimuli'),
+        stimulus: jsPsych.timelineVariable('practice_stimuli'),
         trial_duration: 400
     }
 
@@ -348,66 +348,6 @@
     };
     timeline.push(post_practice_instructions);
 
-    /// MAIN TRIAL STUFF ///
-
-    var practice_stimuli = random_order.slice(120, 123);
-
-
-    /* define fixation */
-    var fixation = {
-        type: jsPsychHtmlKeyboardResponse,
-        choices: "NO_KEYS",
-        stimulus: '<div style="font-size:60px;">+</div>',
-        trial_duration: 800,
-        data: {
-            task: 'fixation'
-        }
-    };
-
-    /* define stimuli fixation */
-    var practice_stimuli_page = {
-        type: jsPsychImageKeyboardResponse,
-        choices: "NO_KEYS",
-        stimulus: jsPsych.timelineVariable('stimulus'),
-        trial_duration: 400
-    }
-
-    var practice_trials = {
-        type: jsPsychHtmlSliderResponse,
-        stimulus: "",
-        css_classes: ['slider'],
-        response_ends_trial: true,
-        slider_width: 750, // include slider response 
-        data: {
-            task: 'response'
-        },
-        labels: ["very husky", "neither husky nor slender", "very slender"],
-        on_finish: function (data) {
-            data.correct = true;
-        }
-    };
-
-
-    var practice_procedure = {
-        timeline: [fixation, practice_stimuli_page, practice_trials],
-        timeline_variables: practice_stimuli
-    };
-
-    timeline.push(practice_procedure);
-
-    /* define post-practice instructions */
-    var post_practice_instructions = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: `
-        <p> You have now completed the practice trials <p>
-        <p> We will now begin the <b> main trials <b><p> 
-        <p> Please press any key to begin <p>
-      `,
-        post_trial_gap: 1000
-    };
-    timeline.push(post_practice_instructions);
-
-    /// MAIN TRIAL STUFF ///
 
     /* load stimuli */
 

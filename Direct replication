@@ -238,18 +238,16 @@ var test_stimuli_page = {
 
     timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete);
 
+    const save_data = {
+        type: jsPsychPipe,
+        action: "save",
+        experiment_id: "desVih9f2BAf",
+        filename: filename,
+        data_string: ()=>jsPsych.data.get().csv()
+    };
 
     //run experiment 
     jsPsych.run(timeline)
-
-
-const save_data = {
-    type: jsPsychPipe,
-    action: "save",
-    experiment_id: "desVih9f2BAf",
-    filename: filename,
-    data_string: ()=>jsPsych.data.get().csv()
-};
 
 </script>
 

@@ -37,6 +37,7 @@
     var preload = {
         type: jsPsychPreload,
         images: [
+            "Stimuli/Sample Sizes.png",
             "Stimuli/17_1.1.jpg", "Stimuli/17_1.jpg", "Stimuli/18_1.1.jpg", "Stimuli/18_1.2.jpg", "Stimuli/18_1.3.jpg", "Stimuli/18_1.jpg", "Stimuli/71_1.1.jpg", "Stimuli/71_1.jpg", "Stimuli/81_1.1.jpg", "Stimuli/81_1.2.jpg", "Stimuli/81_1.3.jpg", "Stimuli/81_1.jpg","Stimuli/19_1.1.jpg", "Stimuli/19_1.2.jpg", "Stimuli/19_1.jpg", "Stimuli/91_1.jpg", "Stimuli/91_1.1.jpg", "Stimuli/91_1.2.jpg", 
             "Stimuli/17_2.1.jpg", "Stimuli/17_2.2.jpg", "Stimuli/17_2.jpg", "Stimuli/18_2.1.jpg", "Stimuli/18_2.2.jpg", "Stimuli/18_2.jpg", "Stimuli/71_2.1.jpg", "Stimuli/71_2.2.jpg", "Stimuli/71_2.jpg", "Stimuli/81_2.1.jpg", "Stimuli/81_2.2.jpg", "Stimuli/81_2.jpg", "Stimuli/19_2.1.jpg", "Stimuli/19_2.jpg", "Stimuli/91_2.jpg", "Stimuli/91_2.1.jpg", 
             "Stimuli/17_3.1.jpg", "Stimuli/17_3.2.jpg", "Stimuli/17_3.3.jpg", "Stimuli/17_3.jpg", "Stimuli/18_3.1.jpg", "Stimuli/18_3.jpg", "Stimuli/71_3.1.jpg", "Stimuli/71_3.2.jpg", "Stimuli/71_3.3.jpg", "Stimuli/71_3.jpg", "Stimuli/81_3.1.jpg", "Stimuli/81_3.jpg", "Stimuli/19_3.1.jpg", "Stimuli/19_3.jpg", "Stimuli/91_3.jpg", "Stimuli/91_3.1.jpg", 
@@ -75,8 +76,8 @@
 
     // after instructions, show examples of players
     var player_example = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<img src="">`,
+        type: jsPsychImageKeyboardResponse,
+        stimulus: 'Stimuli/Sample Sizes.png',
         labels: ["very husky", "neither husky nor slender", "very slender"],
         prompt:
             "<p> Example of most slender player size with a label and example of huskiest player size. </p>"
@@ -94,76 +95,7 @@
     `
     };
     timeline.push(after_example);
-    /*
-    /// NOTE: I AM UNSURE ABOUT WHETHER WE NEED PRACTICE TRIALS NOW THAT WE HAVE THE SAME PRE-TRIAL INSTRUCTIONS AS THE ORIGINAL STUDY
-    /*
     
-    /* load practice trial stimuli */
-    var practice_stimuli = [
-        { stimulus: "___" },
-        { stimulus: "___" },
-        { stimulus: "___" },
-        { stimulus: "___" },
-    ];
-
-    /* define fixation */
-    var fixation = {
-        type: jsPsychHtmlKeyboardResponse,
-        choices: "NO_KEYS",
-        stimulus: '<div style="font-size:60px;">+</div>',
-        trial_duration: 800,
-        data: {
-            task: 'fixation'
-        }
-    };
-
-    /* define stimuli fixation */
-    var practice_stimuli_page = {
-        type: jsPsychHtmlKeyboardResponse,
-        choices: "NO_KEYS",
-        stimulus: jsPsych.timelineVariable('practice_stimuli'),
-        trial_duration: 400
-    }
-
-    var practice_trials = {
-        type: jsPsychHtmlSliderResponse,
-        stimulus: " ",
-        css_classes: ['slider'],
-        response_ends_trial: true,
-        slider_width: 750, // include slider response 
-        data: {
-            task: 'response'
-        },
-        labels: ["very husky", "neither husky nor slender", "very slender"],
-        on_finish: function (data) {
-            data.correct = true;
-        }
-    };
-
-
-    var practice_procedure = {
-        timeline: [fixation, practice_stimuli_page, practice_trials],
-        timeline_variables: practice_stimuli
-    };
-
-    timeline.push(practice_procedure);
-
-    /* define post-practice instructions */
-    var post_practice_instructions = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: `
-        <p> You have now completed the practice trials <p>
-        <p> We will now begin the <b> main trials <b><p> 
-        <p> Please press any key to begin <p>
-      `,
-        post_trial_gap: 1000
-    };
-    timeline.push(post_practice_instructions);
-
-    /// MAIN TRIAL STUFF ///
-
-    /* load stimuli */
-
     var stimuli_list = [
         { stimulus: "Stimuli/17_1.1.jpg", body_size: 1, jersey_number: "low" },
         { stimulus: "Stimuli/17_1.jpg", body_size: 1, jersey_number: "low" },
@@ -357,13 +289,73 @@
     var block_A_stimuli = random_order.slice(0, 60);
     var block_B_stimuli = random_order.slice(60,120);
 
+    var practice_stimuli = random_order.slice(120, 123);
+
+
+    /* define fixation */
+    var fixation = {
+        type: jsPsychHtmlKeyboardResponse,
+        choices: "NO_KEYS",
+        stimulus: '<div style="font-size:60px;">+</div>',
+        trial_duration: 800,
+        data: {
+            task: 'fixation'
+        }
+    };
+
+    /* define stimuli fixation */
+    var practice_stimuli_page = {
+        type: jsPsychImageKeyboardResponse,
+        choices: "NO_KEYS",
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        trial_duration: 400
+    }
+
+    var practice_trials = {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: "",
+        css_classes: ['slider'],
+        response_ends_trial: true,
+        slider_width: 750, // include slider response 
+        data: {
+            task: 'response'
+        },
+        labels: ["very husky", "neither husky nor slender", "very slender"],
+        on_finish: function (data) {
+            data.correct = true;
+        }
+    };
+
+
+    var practice_procedure = {
+        timeline: [fixation, practice_stimuli_page, practice_trials],
+        timeline_variables: practice_stimuli
+    };
+
+    timeline.push(practice_procedure);
+
+    /* define post-practice instructions */
+    var post_practice_instructions = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <p> You have now completed the practice trials <p>
+        <p> We will now begin the <b> main trials <b><p> 
+        <p> Please press any key to begin <p>
+      `,
+        post_trial_gap: 1000
+    };
+    timeline.push(post_practice_instructions);
+
+    /// MAIN TRIAL STUFF ///
+
+    /* load stimuli */
+
+
     var test_stimuli_page = {
         type: jsPsychImageKeyboardResponse,
         choices: "NO_KEYS",
         stimulus: jsPsych.timelineVariable('stimulus'),
-        trial_duration: function () {
-            return jsPsych.randomization.sampleWithoutReplacement([250, 400, 500, 750, 1000, 1250, 1500, 1750, 2000], 2)[0]; // adjust duration as needed
-        }
+        trial_duration: 400
     }
 
     var test_trial = {

@@ -3,6 +3,7 @@
 
 <head>
     <title> Replication of Shams et al. </title>
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
     <script src="https://unpkg.com/jspsych@7.3.4"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
     <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.3"></script>
@@ -22,8 +23,6 @@
 <body></body>
 <script>
 
-const subject_id = jsPsych.randomization.randomID(10);
-const filename = `${subject_id}.csv`;
 
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
@@ -31,6 +30,10 @@ const filename = `${subject_id}.csv`;
             jsPsych.data.displayData();
         }
     });
+
+    const subject_id = jsPsych.randomization.randomID(10);
+    const filename = '${subject_id}.csv';
+
 
     /* create timeline */
     var timeline = [];

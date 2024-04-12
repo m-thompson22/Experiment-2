@@ -21,6 +21,10 @@
 
 <body></body>
 <script>
+
+const subject_id = jsPsych.randomization.randomID(10);
+const filename = `${subject_id}.csv`;
+
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
         on_finish: function () {
@@ -397,6 +401,13 @@ var stimuli_list = [
 
     timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete);
 
+    const save_data = {
+        type: jsPsychPipe,
+        action: "save",
+        experiment_id: "desVih9f2BAf",
+        filename: filename,
+        data_string: ()=>jsPsych.data.get().csv()
+    };
 
     //run experiment 
     jsPsych.run(timeline)

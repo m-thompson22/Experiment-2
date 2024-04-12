@@ -21,6 +21,10 @@
 
 <body></body>
 <script>
+
+    const subject_id = jsPsych.randomization.randomID(10);
+    const filename = `${subject_id}.csv`;
+
     /* initialize jsPsych */
     var jsPsych = initJsPsych({
         on_finish: function () {
@@ -38,16 +42,16 @@
         type: jsPsychPreload,
         images: [
             "Stimuli/Sample Sizes.png",
-            "Stimuli/17_1.1.jpg", "Stimuli/17_1.jpg", "Stimuli/18_1.1.jpg", "Stimuli/18_1.2.jpg", "Stimuli/18_1.3.jpg", "Stimuli/18_1.jpg", "Stimuli/71_1.1.jpg", "Stimuli/71_1.jpg", "Stimuli/81_1.1.jpg", "Stimuli/81_1.2.jpg", "Stimuli/81_1.3.jpg", "Stimuli/81_1.jpg","Stimuli/19_1.1.jpg", "Stimuli/19_1.2.jpg", "Stimuli/19_1.jpg", "Stimuli/91_1.jpg", "Stimuli/91_1.1.jpg", "Stimuli/91_1.2.jpg", 
-            "Stimuli/17_2.1.jpg", "Stimuli/17_2.2.jpg", "Stimuli/17_2.jpg", "Stimuli/18_2.1.jpg", "Stimuli/18_2.2.jpg", "Stimuli/18_2.jpg", "Stimuli/71_2.1.jpg", "Stimuli/71_2.2.jpg", "Stimuli/71_2.jpg", "Stimuli/81_2.1.jpg", "Stimuli/81_2.2.jpg", "Stimuli/81_2.jpg", "Stimuli/19_2.1.jpg", "Stimuli/19_2.jpg", "Stimuli/91_2.jpg", "Stimuli/91_2.1.jpg", 
-            "Stimuli/17_3.1.jpg", "Stimuli/17_3.2.jpg", "Stimuli/17_3.3.jpg", "Stimuli/17_3.jpg", "Stimuli/18_3.1.jpg", "Stimuli/18_3.jpg", "Stimuli/71_3.1.jpg", "Stimuli/71_3.2.jpg", "Stimuli/71_3.3.jpg", "Stimuli/71_3.jpg", "Stimuli/81_3.1.jpg", "Stimuli/81_3.jpg", "Stimuli/19_3.1.jpg", "Stimuli/19_3.jpg", "Stimuli/91_3.jpg", "Stimuli/91_3.1.jpg", 
-            "Stimuli/17_4.1.jpg", "Stimuli/17_4.2.jpg", "Stimuli/17_4.jpg", "Stimuli/18_4.1.jpg", "Stimuli/18_4.2.jpg", "Stimuli/18_4.jpg", "Stimuli/71_4.1.jpg", "Stimuli/71_4.2.jpg", "Stimuli/71_4.jpg", "Stimuli/81_4.1.jpg", "Stimuli/81_4.2.jpg", "Stimuli/81_4.jpg", "Stimuli/19_4.1.jpg", "Stimuli/19_4.jpg", "Stimuli/91_4.jpg", "Stimuli/91_4.1.jpg", 
-            "Stimuli/17_5.1.jpg", "Stimuli/17_5.2.jpg", "Stimuli/17_5.jpg", "Stimuli/18_5.1.jpg", "Stimuli/18_5.2.jpg", "Stimuli/18_5.jpg", "Stimuli/71_5.1.jpg", "Stimuli/71_5.2.jpg", "Stimuli/71_5.jpg", "Stimuli/81_5.1.jpg", "Stimuli/81_5.2.jpg", "Stimuli/81_5.jpg","Stimuli/19_5.1.jpg", "Stimuli/19_5.jpg", "Stimuli/91_5.jpg", "Stimuli/91_5.1.jpg", 
-            "Stimuli/17_6.1.jpg", "Stimuli/17_6.jpg", "Stimuli/18_6.1.jpg", "Stimuli/18_6.2.jpg", "Stimuli/18_6.3.jpg", "Stimuli/18_6.jpg", "Stimuli/71_6.1.jpg", "Stimuli/71_6.jpg", "Stimuli/81_6.1.jpg", "Stimuli/81_6.2.jpg", "Stimuli/81_6.3.jpg", "Stimuli/81_6.jpg", "Stimuli/19_6.1.jpg", "Stimuli/19_6.jpg", "Stimuli/91_6.jpg", "Stimuli/91_6.1.jpg", 
-            "Stimuli/17_7.1.jpg", "Stimuli/17_7.2.jpg", "Stimuli/17_7.3.jpg", "Stimuli/17_7.jpg", "Stimuli/18_7.1.jpg", "Stimuli/18_7.jpg", "Stimuli/71_7.1.jpg", "Stimuli/71_7.2.jpg", "Stimuli/71_7.3.jpg", "Stimuli/71_7.jpg", "Stimuli/81_7.1.jpg", "Stimuli/81_7.jpg", "Stimuli/19_7.1.jpg", "Stimuli/19_7.jpg", "Stimuli/91_7.jpg", "Stimuli/91_7.1.jpg", 
-            "Stimuli/17_8.1.jpg", "Stimuli/17_8.2.jpg", "Stimuli/17_8.jpg", "Stimuli/17_8.1.jpg", "Stimuli/18_8.2.jpg", "Stimuli/18_8.jpg", "Stimuli/71_8.1.jpg", "Stimuli/71_8.2.jpg", "Stimuli/71_8.jpg", "Stimuli/71_8.1.jpg", "Stimuli/81_8.2.jpg", "Stimuli/81_8.jpg", "Stimuli/19_8.1.jpg", "Stimuli/19_8.jpg", "Stimuli/91_8.jpg", "Stimuli/91_8.1.jpg", 
-            "Stimuli/17_9.1.jpg", "Stimuli/17_9.jpg", "Stimuli/18_9.1.jpg", "Stimuli/18_9.2.jpg", "Stimuli/18_9.3.jpg", "Stimuli/18_9.jpg", "Stimuli/71_9.1.jpg", "Stimuli/71_9.jpg", "Stimuli/81_9.1.jpg", "Stimuli/81_9.2.jpg", "Stimuli/81_9.3.jpg", "Stimuli/81_9.jpg", "Stimuli/19_9.1.jpg", "Stimuli/19_9.jpg", "Stimuli/91_9.jpg", "Stimuli/91_9.1.jpg", 
-            "Stimuli/17_10.1.jpg", "Stimuli/17_10.2.jpg", "Stimuli/17_10.jpg", "Stimuli/18_10.1.jpg", "Stimuli/18_10.2.jpg", "Stimuli/18_10.jpg", "Stimuli/71_10.1.jpg", "Stimuli/71_10.2.jpg", "Stimuli/71_10.jpg", "Stimuli/81_10.1.jpg", "Stimuli/81_10.2.jpg", "Stimuli/81_10.jpg", "Stimuli/19_10.1.jpg", "Stimuli/19_10.jpg", "Stimuli/91_10.jpg", "Stimuli/91_10.1.jpg", 
+            "Stimuli/17_1.1.jpg", "Stimuli/17_1.jpg", "Stimuli/18_1.1.jpg", "Stimuli/18_1.2.jpg", "Stimuli/18_1.3.jpg", "Stimuli/18_1.jpg", "Stimuli/71_1.1.jpg", "Stimuli/71_1.jpg", "Stimuli/81_1.1.jpg", "Stimuli/81_1.2.jpg", "Stimuli/81_1.3.jpg", "Stimuli/81_1.jpg", "Stimuli/19_1.1.jpg", "Stimuli/19_1.2.jpg", "Stimuli/19_1.jpg", "Stimuli/91_1.jpg", "Stimuli/91_1.1.jpg", "Stimuli/91_1.2.jpg",
+            "Stimuli/17_2.1.jpg", "Stimuli/17_2.2.jpg", "Stimuli/17_2.jpg", "Stimuli/18_2.1.jpg", "Stimuli/18_2.2.jpg", "Stimuli/18_2.jpg", "Stimuli/71_2.1.jpg", "Stimuli/71_2.2.jpg", "Stimuli/71_2.jpg", "Stimuli/81_2.1.jpg", "Stimuli/81_2.2.jpg", "Stimuli/81_2.jpg", "Stimuli/19_2.1.jpg", "Stimuli/19_2.jpg", "Stimuli/91_2.jpg", "Stimuli/91_2.1.jpg",
+            "Stimuli/17_3.1.jpg", "Stimuli/17_3.2.jpg", "Stimuli/17_3.3.jpg", "Stimuli/17_3.jpg", "Stimuli/18_3.1.jpg", "Stimuli/18_3.jpg", "Stimuli/71_3.1.jpg", "Stimuli/71_3.2.jpg", "Stimuli/71_3.3.jpg", "Stimuli/71_3.jpg", "Stimuli/81_3.1.jpg", "Stimuli/81_3.jpg", "Stimuli/19_3.1.jpg", "Stimuli/19_3.jpg", "Stimuli/91_3.jpg", "Stimuli/91_3.1.jpg",
+            "Stimuli/17_4.1.jpg", "Stimuli/17_4.2.jpg", "Stimuli/17_4.jpg", "Stimuli/18_4.1.jpg", "Stimuli/18_4.2.jpg", "Stimuli/18_4.jpg", "Stimuli/71_4.1.jpg", "Stimuli/71_4.2.jpg", "Stimuli/71_4.jpg", "Stimuli/81_4.1.jpg", "Stimuli/81_4.2.jpg", "Stimuli/81_4.jpg", "Stimuli/19_4.1.jpg", "Stimuli/19_4.jpg", "Stimuli/91_4.jpg", "Stimuli/91_4.1.jpg",
+            "Stimuli/17_5.1.jpg", "Stimuli/17_5.2.jpg", "Stimuli/17_5.jpg", "Stimuli/18_5.1.jpg", "Stimuli/18_5.2.jpg", "Stimuli/18_5.jpg", "Stimuli/71_5.1.jpg", "Stimuli/71_5.2.jpg", "Stimuli/71_5.jpg", "Stimuli/81_5.1.jpg", "Stimuli/81_5.2.jpg", "Stimuli/81_5.jpg", "Stimuli/19_5.1.jpg", "Stimuli/19_5.jpg", "Stimuli/91_5.jpg", "Stimuli/91_5.1.jpg",
+            "Stimuli/17_6.1.jpg", "Stimuli/17_6.jpg", "Stimuli/18_6.1.jpg", "Stimuli/18_6.2.jpg", "Stimuli/18_6.3.jpg", "Stimuli/18_6.jpg", "Stimuli/71_6.1.jpg", "Stimuli/71_6.jpg", "Stimuli/81_6.1.jpg", "Stimuli/81_6.2.jpg", "Stimuli/81_6.3.jpg", "Stimuli/81_6.jpg", "Stimuli/19_6.1.jpg", "Stimuli/19_6.jpg", "Stimuli/91_6.jpg", "Stimuli/91_6.1.jpg",
+            "Stimuli/17_7.1.jpg", "Stimuli/17_7.2.jpg", "Stimuli/17_7.3.jpg", "Stimuli/17_7.jpg", "Stimuli/18_7.1.jpg", "Stimuli/18_7.jpg", "Stimuli/71_7.1.jpg", "Stimuli/71_7.2.jpg", "Stimuli/71_7.3.jpg", "Stimuli/71_7.jpg", "Stimuli/81_7.1.jpg", "Stimuli/81_7.jpg", "Stimuli/19_7.1.jpg", "Stimuli/19_7.jpg", "Stimuli/91_7.jpg", "Stimuli/91_7.1.jpg",
+            "Stimuli/17_8.1.jpg", "Stimuli/17_8.2.jpg", "Stimuli/17_8.jpg", "Stimuli/17_8.1.jpg", "Stimuli/18_8.2.jpg", "Stimuli/18_8.jpg", "Stimuli/71_8.1.jpg", "Stimuli/71_8.2.jpg", "Stimuli/71_8.jpg", "Stimuli/71_8.1.jpg", "Stimuli/81_8.2.jpg", "Stimuli/81_8.jpg", "Stimuli/19_8.1.jpg", "Stimuli/19_8.jpg", "Stimuli/91_8.jpg", "Stimuli/91_8.1.jpg",
+            "Stimuli/17_9.1.jpg", "Stimuli/17_9.jpg", "Stimuli/18_9.1.jpg", "Stimuli/18_9.2.jpg", "Stimuli/18_9.3.jpg", "Stimuli/18_9.jpg", "Stimuli/71_9.1.jpg", "Stimuli/71_9.jpg", "Stimuli/81_9.1.jpg", "Stimuli/81_9.2.jpg", "Stimuli/81_9.3.jpg", "Stimuli/81_9.jpg", "Stimuli/19_9.1.jpg", "Stimuli/19_9.jpg", "Stimuli/91_9.jpg", "Stimuli/91_9.1.jpg",
+            "Stimuli/17_10.1.jpg", "Stimuli/17_10.2.jpg", "Stimuli/17_10.jpg", "Stimuli/18_10.1.jpg", "Stimuli/18_10.2.jpg", "Stimuli/18_10.jpg", "Stimuli/71_10.1.jpg", "Stimuli/71_10.2.jpg", "Stimuli/71_10.jpg", "Stimuli/81_10.1.jpg", "Stimuli/81_10.2.jpg", "Stimuli/81_10.jpg", "Stimuli/19_10.1.jpg", "Stimuli/19_10.jpg", "Stimuli/91_10.jpg", "Stimuli/91_10.1.jpg",
         ]
     };
     timeline.push(preload);
@@ -271,10 +275,10 @@
     ];
     /* Define trial stimuli/create blocks */
 
-    var random_order = jsPsych.randomization.shuffleNoRepeats(stimuli_list, (a, b)=>{
+    var random_order = jsPsych.randomization.shuffleNoRepeats(stimuli_list, (a, b) => {
         var person_a = a.stimulus.split("/")[1]
         var person_b = b.stimulus.split("/")[1]
-        
+
         var number_a = person_a.split("_")[0]
         var number_b = person_b.split("_")[0]
 
@@ -283,13 +287,13 @@
         var type_a = person_a.split("_")[1]
         var type_b = person_b.split("_")[1]
 
-        return type_a == type_b && number_a == number_b_reverse        
+        return type_a == type_b && number_a == number_b_reverse
     })
 
     var block_A_stimuli = random_order.slice(0, 60);
-    var block_B_stimuli = random_order.slice(60,120);
-    
-    
+    var block_B_stimuli = random_order.slice(60, 120);
+
+
     /* load practice trials*/
 
     var practice_stimuli = random_order.slice(120, 123);
@@ -413,6 +417,13 @@
 
     timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete);
 
+    const save_data = {
+        type: jsPsychPipe,
+        action: "save",
+        experiment_id: "desVih9f2BAf",
+        filename: filename,
+        data_string: () => jsPsych.data.get().csv()
+    };
 
     //run experiment 
     jsPsych.run(timeline)

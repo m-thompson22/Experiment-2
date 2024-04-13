@@ -85,7 +85,7 @@
     var player_example = { 
         type: jsPsychImageKeyboardResponse,
         stimulus: 'Stimuli/Sample Sizes.png',
-        labels: ["very husky", "neither husky nor slender", "very slender"],
+        labels: ["very slender", "neither slender nor husky", "very husky"],
         prompt: 
             "<p> Example of most slender player size with a label and example of huskiest player size. </p>"
     }; 
@@ -322,7 +322,7 @@ var stimuli_list = [
         data: {
             task: 'response'
         },
-        labels: ["very husky", "neither husky nor slender", "very slender"],
+        labels: ["very slender", "neither slender nor husky", "very husky"],
         on_finish: function (data) {
             data.correct = true;
         }
@@ -359,7 +359,7 @@ var stimuli_list = [
         data: {
             task: 'response',
         },
-        labels: ["very husky", "neither husky nor slender", "very slender"],
+        labels: ["very slender", "neither slender nor husky", "very husky"],
         on_finish: function (data) {
             data.correct = true; // Assuming there's no correctness criteria for  trials
         }
@@ -392,7 +392,7 @@ var stimuli_list = [
         stimulus: `
         <p> Congrats! You have now completed the experiment. <p>
         <p> Thank you for participating! <p> 
-        <p> Please wait for further instruction from your experimenter <p>
+        <p> Press some key and exit. <p>
       `,
         post_trial_gap: 1000
     };

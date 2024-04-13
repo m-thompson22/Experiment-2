@@ -85,7 +85,7 @@
     var player_example = {
         type: jsPsychImageKeyboardResponse,
         stimulus: 'Stimuli/Sample Sizes.png',
-        labels: ["very husky", "neither husky nor slender", "very slender"],
+        labels: ["very slender", "neither slender nor husky", "very husky"],
         prompt:
             "<p> Example of most slender player size with a label and example of huskiest player size. </p>"
     };
@@ -330,7 +330,7 @@
         data: {
             task: 'response'
         },
-        labels: ["very husky", "neither husky nor slender", "very slender"],
+        labels: ["very slender", "neither slender nor husky", "very husky"],
         on_finish: function (data) {
             data.correct = true;
         }
@@ -374,7 +374,7 @@
         stimulus: "",
         css_classes: ['slider'],
         slider_width: 750,
-        labels: ["very husky", "neither husky nor slender", "very slender"],
+        labels: ["very slender", "neither slender nor husky", "very husky"],
         data: {
             body_size: jsPsych.timelineVariable('body_size'),
             jersey_number: jsPsych.timelineVariable('jersey_number')
@@ -420,6 +420,11 @@
 
     timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete);
 
+    
+
+    //run experiment 
+    jsPsych.run(timeline)
+
     const save_data = {
         type: jsPsychPipe,
         action: "save",
@@ -427,9 +432,6 @@
         filename: filename,
         data_string: () => jsPsych.data.get().csv()
     };
-
-    //run experiment 
-    jsPsych.run(timeline)
 
 </script>
 

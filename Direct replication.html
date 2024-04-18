@@ -32,8 +32,21 @@
         }
     });
 
+    // capture info from Prolific
+    var prolific_subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+    jsPsych.data.addProperties({
+        prolific_subject_id: prolific_subject_id,
+        study_id: study_id,
+        session_id: session_id
+    });
+
     const subject_id = jsPsych.randomization.randomID(10);
     const filename = `${subject_id}.csv`;
+
+
 
     /* create timeline */
     var timeline = [];
@@ -409,9 +422,9 @@
         stimulus: `
         <p> Congrats! You have now completed the experiment. <p>
         <p> Thank you for participating! <p> 
-        <p> Press some key and exit. <p>
-      `,
-        post_trial_gap: 0
+        <p><a href="https://app.prolific.com/submissions/complete?cc=C17CB75J">Click here to return to Prolific and complete the study</a>.</p>      
+    `,
+        choices: "NO_KEYS"
     };
 
     const save_data = {
@@ -426,13 +439,13 @@
 
     var rnd_blocks = jsPsych.randomization.shuffle(blocks);
 
-    timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], test_complete, save_data);
+    timeline.push(rnd_blocks[0], test_break, rnd_blocks[1], save_data, test_complete);
 
 
     //run experiment 
     jsPsych.run(timeline)
 
-    
+
 
 </script>
 

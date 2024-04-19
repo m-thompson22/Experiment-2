@@ -12,15 +12,7 @@
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
     <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
     <style>
-        .slider #jspych-display-element {
-            left: 900px; top: 650px;
-            bottom: -200px;
-            padding: 0px 0px;
-            vertical-align: bottom;
-            line-height: 0%;
-        }
-    
-        .slider {
+        .jspsych-html-slider-response-container, .jspsych-image-slider-response-container {
             font-size: 20px;
             font-weight: bold;
             color: black;
@@ -28,12 +20,13 @@
             
         } 
 
-        #jspsych-image-slider-response-stimulus img {
+        .trial #jspsych-image-keyboard-response-stimulus {
             width: 250px;
             height: 450px;
             object-fit: none;
             object-position: 45% 20%;
         }
+
     </style>
 </head>
 
@@ -102,7 +95,7 @@
         stimulus: `
     <p> In today's task you will be shown images of football players. </p>
         <p>Please <strong> rate these players </strong> regarding their <strong> body size </strong> on the scale, taking no longer than <strong> three seconds </strong> to respond.</p>
-        <p> On the next page you will see two examples of what the football players might look like. </p> 
+        <p> On the next page you will see two examples of how the football players might look like. </p> 
         <div style='width: 700px;'>
         </div>
         <p>Press enter to proceed. </p>
@@ -127,9 +120,8 @@
     <p> The football players you just saw hopefully gave you a general idea of how slender and husky players look. </p> 
     <p> <strong> Your task on the following slides will be to rate the football players regarding their body size on a scale. </strong> </p>
     <p> There is no right or wrong. Rate as you perceive, and please be diligent and do your best, and do not use the slider randomly. </p>
-    <p> A fixation cross will appear prior to the image presentation of the football players. Please try to keep your gaze on this fixation cross. </p>
-    <p> We will begin with a few practice trials so you can familiarize yourself with the task. </p>
-    <p> Note: The football players will only be displayed very briefly </p>
+    <p> A fixation cross will appear prior to the image presentation of the football players. Please try to keep your gaze at this fixation cross. </p>
+    <p> Note: The football players will only be displayed very briefly </p> 
     `
     };
     timeline.push(after_example);
@@ -349,13 +341,16 @@
         type: jsPsychImageKeyboardResponse,
         choices: "NO_KEYS",
         stimulus: jsPsych.timelineVariable('stimulus'),
-        trial_duration: 400
+        css_classes: ['trial'],
+        trial_duration: 400,
+        render_on_canvas: false,
+        stimulus_width: 250,
+        stimulus_height: 450,
     }
 
     var practice_trials = {
         type: jsPsychHtmlSliderResponse,
         stimulus: "",
-        css_classes: ['slider'],
         response_ends_trial: true,
         slider_width: 750, // include slider response 
         data: {
@@ -396,14 +391,16 @@
         type: jsPsychImageKeyboardResponse,
         choices: "NO_KEYS",
         stimulus: jsPsych.timelineVariable('stimulus'),
-        trial_duration: 400
-
+        css_classes: ['trial'],
+        trial_duration: 400,
+        render_on_canvas: false,
+        stimulus_width: 250,
+        stimulus_height: 450,
     }
 
     var test_trial = {
         type: jsPsychHtmlSliderResponse,
         stimulus: "",
-        css_classes: ['slider'],
         slider_width: 750,
         labels: ["very slender", "neither slender nor husky", "very husky"],
         data: {

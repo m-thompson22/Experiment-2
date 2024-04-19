@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -12,15 +13,37 @@
     <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
     <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
     <style>
+
+        .slider #jspych-display-element {
+            left: 900px; top: 650px;
+            bottom: -200px;
+            padding: 0px 0px;
+            vertical-align: bottom;
+            line-height: 0%;
+        }
+    
         .slider {
             font-size: 20px;
             font-weight: bold;
             color: black;
+            margin-top: -10%;
+            
+        } 
+
+        #jspsych-image-slider-response-stimulus img {
+            width: 250px;
+            height: 450px;
+            object-fit: none;
+            object-position: 45% 20%;
         }
+
     </style>
+   
+
 </head>
 
-<body></body>
+<body>
+</body>
 <script>
 
 
@@ -51,7 +74,6 @@
     var timeline = [];
 
 
-
     /* preload images */
     var preload = {
         type: jsPsychPreload,
@@ -66,7 +88,7 @@
             "Stimuli/17_8.1.jpg", "Stimuli/17_8.2.jpg", "Stimuli/17_8.jpg", "Stimuli/17_8.1.jpg", "Stimuli/18_8.2.jpg", "Stimuli/18_8.jpg", "Stimuli/71_8.1.jpg", "Stimuli/71_8.2.jpg", "Stimuli/71_8.jpg", "Stimuli/71_8.1.jpg", "Stimuli/81_8.2.jpg", "Stimuli/81_8.jpg", "Stimuli/19_8.1.jpg", "Stimuli/19_8.jpg", "Stimuli/91_8.jpg", "Stimuli/91_8.1.jpg",
             "Stimuli/17_9.1.jpg", "Stimuli/17_9.jpg", "Stimuli/18_9.1.jpg", "Stimuli/18_9.2.jpg", "Stimuli/18_9.3.jpg", "Stimuli/18_9.jpg", "Stimuli/71_9.1.jpg", "Stimuli/71_9.jpg", "Stimuli/81_9.1.jpg", "Stimuli/81_9.2.jpg", "Stimuli/81_9.3.jpg", "Stimuli/81_9.jpg", "Stimuli/19_9.1.jpg", "Stimuli/19_9.jpg", "Stimuli/91_9.jpg", "Stimuli/91_9.1.jpg",
             "Stimuli/17_10.1.jpg", "Stimuli/17_10.2.jpg", "Stimuli/17_10.jpg", "Stimuli/18_10.1.jpg", "Stimuli/18_10.2.jpg", "Stimuli/18_10.jpg", "Stimuli/71_10.1.jpg", "Stimuli/71_10.2.jpg", "Stimuli/71_10.jpg", "Stimuli/81_10.1.jpg", "Stimuli/81_10.2.jpg", "Stimuli/81_10.jpg", "Stimuli/19_10.1.jpg", "Stimuli/19_10.jpg", "Stimuli/91_10.jpg", "Stimuli/91_10.1.jpg",
-        ]
+        ],
     };
     timeline.push(preload);
 
@@ -99,7 +121,7 @@
         stimulus: 'Stimuli/Sample Sizes.png',
         labels: ["very slender", "neither slender nor husky", "very husky"],
         prompt:
-            "<p> Example of most slender player size with a label and example of huskiest player size. </p>"
+            "<p> Example of most slender, neither husky nor slender, and most husky player sizes with corresponding labels. </p>"
     };
     timeline.push(player_example);
 
@@ -110,6 +132,7 @@
     <p> <strong> Your task on the following slides will be to rate the football players regarding their body size on a scale. </strong> </p>
     <p> There is no right or wrong. Rate as you perceive, and please be diligent and do your best, and do not use the slider randomly. </p>
     <p> A fixation cross will appear prior to the image presentation of the football players. Please try to keep your gaze at this fixation cross. </p>
+    <p> We will begin with a few practice trials so you can familiarize yourself with the task. </p>
     `
     };
     timeline.push(after_example);
@@ -329,7 +352,9 @@
         stimulus: jsPsych.timelineVariable('stimulus'),
         response_ends_trial: true,
         slider_width: 750, // include slider response 
-        css_classes: ['slider'],
+        render_on_canvas: false,
+        stimulus_width: 250,
+        stimulus_height: 450,
         data: {
             task: 'response'
         },
@@ -365,8 +390,10 @@
     var test_trial = {
         type: jsPsychImageSliderResponse,
         stimulus: jsPsych.timelineVariable('stimulus'),
-        css_classes: ['slider'],
         slider_width: 750,
+        render_on_canvas: false,
+        stimulus_width: 250,
+        stimulus_height: 450,
         data: {
             task: 'response',
         },
